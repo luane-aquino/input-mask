@@ -34,7 +34,7 @@ function App() {
     if (onlyDigits.length <= 9) {
       let newValue = "";
       if (onlyDigits) {
-        newValue = `R$ ${onlyDigits}`;
+        newValue = `R$ ${getValueFormattedInBrazilianCurrency(onlyDigits)}`;
       }
       setInputValue(newValue);
     }
@@ -74,6 +74,16 @@ function App() {
 
   const getValueFormatted = (value: string) => {
     return value && new Intl.NumberFormat("pt-br").format(parseInt(value));
+  };
+
+  const getValueFormattedInBrazilianCurrency = (value: string) => {
+    return (
+      value &&
+      new Intl.NumberFormat("pt-br", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }).format(parseInt(value) / 100)
+    );
   };
 
   return (
