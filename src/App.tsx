@@ -31,15 +31,19 @@ function App() {
 
   const handleMoneyFormat = (value: string) => {
     const onlyDigits = value.replace(/\D/g, "");
-    let newValue = "";
-    if (onlyDigits) {
-      newValue = `R$ ${onlyDigits}`;
+    if (onlyDigits.length <= 9) {
+      let newValue = "";
+      if (onlyDigits) {
+        newValue = `R$ ${onlyDigits}`;
+      }
+      setInputValue(newValue);
     }
-    setInputValue(newValue);
   };
 
   const handlePointsFormat = (value: string) => {
-    setInputValue(value);
+    if (value.length <= 9) {
+      setInputValue(value);
+    }
   };
 
   const handleChange = (e: any) => {
@@ -56,6 +60,7 @@ function App() {
     let context = canvas.getContext("2d");
     if (context) {
       let width = context.measureText(inputValue).width + 16;
+      console.log("***[res]", Math.ceil(width) + "px");
       return Math.ceil(width) + "px";
     }
     return "0";
