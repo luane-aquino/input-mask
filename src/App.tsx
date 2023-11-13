@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 
 enum RadioValues {
@@ -41,8 +41,10 @@ function App() {
   };
 
   const handlePointsFormat = (value: string) => {
-    if (value.length <= 9) {
-      setInputValue(value);
+    const onlyDigits = value.replace(/\D/g, "");
+    if (onlyDigits.length <= 9) {
+      const newValue = getValueFormatted(onlyDigits);
+      setInputValue(newValue);
     }
   };
 
@@ -70,6 +72,10 @@ function App() {
     return typeSelected === RadioValues.points && inputValue.length > 0;
   };
 
+  const getValueFormatted = (value: string) => {
+    return value && parseInt(value).toLocaleString("pt-br");
+  };
+
   return (
     <div className="App">
       <form onSubmit={handleSubmit}>
@@ -88,7 +94,7 @@ function App() {
               className="suffix"
               style={{ left: `${getInputValueWidth()}` }}
             >
-              pts
+              {inputValue === "1" ? "pt" : "pts"}
             </span>
           )}
         </div>
