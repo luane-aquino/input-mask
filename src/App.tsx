@@ -73,7 +73,7 @@ function App() {
   };
 
   const getValueFormatted = (value: string) => {
-    return value && parseInt(value).toLocaleString("pt-br");
+    return value && new Intl.NumberFormat("pt-br").format(parseInt(value));
   };
 
   return (
