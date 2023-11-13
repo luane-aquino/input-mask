@@ -59,11 +59,15 @@ function App() {
     let canvas = document.createElement("canvas");
     let context = canvas.getContext("2d");
     if (context) {
-      let width = context.measureText(inputValue).width + 16;
-      console.log("***[res]", Math.ceil(width) + "px");
+      context.font = "16px times new roman";
+      let width = context.measureText(inputValue).width + 8;
       return Math.ceil(width) + "px";
     }
     return "0";
+  };
+
+  const showSuffix = () => {
+    return typeSelected === RadioValues.points && inputValue.length > 0;
   };
 
   return (
@@ -79,7 +83,7 @@ function App() {
             value={inputValue}
             onChange={handleChange}
           />
-          {typeSelected === RadioValues.points && (
+          {showSuffix() && (
             <span
               className="suffix"
               style={{ left: `${getInputValueWidth()}` }}
