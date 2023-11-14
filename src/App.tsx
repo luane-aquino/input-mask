@@ -1,5 +1,11 @@
 import React, { useState } from "react";
 import "./App.css";
+import {
+  getDigitsOnly,
+  getInputValueWidth,
+  getValueFormattedInBrazilianCurrency,
+  getValueFormattedThousands,
+} from "./utils";
 
 enum RadioValues {
   money = "money",
@@ -19,71 +25,40 @@ function App() {
     RadioValues.money,
   );
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setInputValue("");
   };
 
-  const handleRadioChange = (e: any) => {
-    setTypeSelected(e.target.value);
+  const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value as RadioValuesType;
+    setTypeSelected(value);
     setInputValue("");
   };
 
   const handleMoneyFormat = (value: string) => {
-    const onlyDigits = value.replace(/\D/g, "");
+    const onlyDigits = getDigitsOnly(value);
     if (onlyDigits.length <= 9) {
-      let newValue = "";
-      if (onlyDigits) {
-        newValue = `R$ ${getValueFormattedInBrazilianCurrency(onlyDigits)}`;
-      }
-      setInputValue(newValue);
+      setInputValue(`R$ ${getValueFormattedInBrazilianCurrency(onlyDigits)}`);
     }
   };
 
   const handlePointsFormat = (value: string) => {
-    const onlyDigits = value.replace(/\D/g, "");
+    const onlyDigits = getDigitsOnly(value);
     if (onlyDigits.length <= 9) {
-      const newValue = getValueFormatted(onlyDigits);
-      setInputValue(newValue);
+      setInputValue(getValueFormattedThousands(onlyDigits));
     }
   };
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    if (typeSelected === RadioValues.money) {
-      handleMoneyFormat(value);
-    } else {
-      handlePointsFormat(value);
-    }
-  };
-
-  const getInputValueWidth = () => {
-    let canvas = document.createElement("canvas");
-    let context = canvas.getContext("2d");
-    if (context) {
-      context.font = "16px times new roman";
-      let width = context.measureText(inputValue).width + 8;
-      return Math.ceil(width) + "px";
-    }
-    return "0";
+    typeSelected === RadioValues.money
+      ? handleMoneyFormat(value)
+      : handlePointsFormat(value);
   };
 
   const showSuffix = () => {
     return typeSelected === RadioValues.points && inputValue.length > 0;
-  };
-
-  const getValueFormatted = (value: string) => {
-    return value && new Intl.NumberFormat("pt-br").format(parseInt(value));
-  };
-
-  const getValueFormattedInBrazilianCurrency = (value: string) => {
-    return (
-      value &&
-      new Intl.NumberFormat("pt-br", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      }).format(parseInt(value) / 100)
-    );
   };
 
   return (
@@ -93,7 +68,7 @@ function App() {
         <div className="wrapper">
           <label htmlFor="input-mask">{labelText[typeSelected]}</label>
           <input
-            type="string"
+            type="text"
             id="input-mask"
             className="input"
             value={inputValue}
@@ -102,7 +77,7 @@ function App() {
           {showSuffix() && (
             <span
               className="suffix"
-              style={{ left: `${getInputValueWidth()}` }}
+              style={{ left: `${getInputValueWidth(inputValue)}` }}
             >
               {inputValue === "1" ? "pt" : "pts"}
             </span>
