@@ -61,6 +61,10 @@ function App() {
     return typeSelected === RadioValues.points && inputValue.length > 0;
   };
 
+  const isDisabled = () => {
+    return parseInt(getDigitsOnly(inputValue)) === 0 || inputValue === "";
+  };
+
   return (
     <div className="App">
       <form onSubmit={handleSubmit}>
@@ -109,7 +113,7 @@ function App() {
           </div>
         </fieldset>
         {/* button */}
-        <button disabled={inputValue.length === 0}>confirmar</button>
+        <button disabled={isDisabled()}>confirmar</button>
       </form>
     </div>
   );
