@@ -6,6 +6,7 @@ import {
   getValueFormattedInBrazilianCurrency,
   getValueFormattedThousands,
 } from "./utils";
+import Toast from "./components/Toast";
 
 enum RadioValues {
   money = "money",
@@ -21,12 +22,14 @@ const labelText: Record<string, string> = {
 
 function App() {
   const [inputValue, setInputValue] = useState("");
+  const [showToast, setShowToast] = useState(false);
   const [typeSelected, setTypeSelected] = useState<RadioValuesType>(
     RadioValues.money,
   );
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setShowToast(true);
     setInputValue("");
   };
 
@@ -65,12 +68,18 @@ function App() {
     return parseInt(getDigitsOnly(inputValue)) === 0 || inputValue === "";
   };
 
+  const turnOffToast = () => {
+    setShowToast(false);
+  };
+
   return (
     <div className="App">
-      <form onSubmit={handleSubmit}>
-        {/* input with mask */}
+      <form onSubmit={handleSubmit} className="form">
+        <h1 className="title">Input mask example</h1>
         <div className="wrapper">
-          <label htmlFor="input-mask">{labelText[typeSelected]}</label>
+          <label htmlFor="input-mask" className="label">
+            {labelText[typeSelected]}
+          </label>
           <input
             type="text"
             id="input-mask"
@@ -87,9 +96,8 @@ function App() {
             </span>
           )}
         </div>
-        {/* controls */}
-        <fieldset>
-          <div>
+        <fieldset className="radios-wrapper">
+          <div className="radio-content">
             <input
               id="radio-money"
               type="radio"
@@ -98,9 +106,11 @@ function App() {
               onChange={handleRadioChange}
               checked={RadioValues.money === typeSelected}
             />
-            <label htmlFor="radio-money">edit money</label>
+            <label htmlFor="radio-money" className="radio-content__label">
+              edit money
+            </label>
           </div>
-          <div>
+          <div className="radio-content">
             <input
               id="radio-points"
               type="radio"
@@ -109,11 +119,15 @@ function App() {
               onChange={handleRadioChange}
               checked={RadioValues.points === typeSelected}
             />
-            <label htmlFor="radio-points">edit points</label>
+            <label htmlFor="radio-points" className="radio-content__label">
+              edit points
+            </label>
           </div>
         </fieldset>
-        {/* button */}
-        <button disabled={isDisabled()}>confirmar</button>
+        <button disabled={isDisabled()} className="confirm-button">
+          confirmar
+        </button>
+        {showToast && <Toast text={`value submited!`} turnOff={turnOffToast} />}
       </form>
     </div>
   );
