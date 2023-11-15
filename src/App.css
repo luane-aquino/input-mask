@@ -2,11 +2,12 @@
   position: relative;
   width: 30%;
   min-width: 200px;
+  height: 78px;
 }
 
 .suffix {
   position: absolute;
-  top: 26px;
+  top: 35px;
 }
 
 .App {

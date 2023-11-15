@@ -92,7 +92,7 @@ function App() {
               className="suffix"
               style={{ left: `${getInputValueWidth(inputValue)}` }}
             >
-              {inputValue === "1" ? "pt" : "pts"}
+              {inputValue === "1" ? " pt" : " pts"}
             </span>
           )}
         </div>
