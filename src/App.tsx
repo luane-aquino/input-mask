@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import "./App.css";
 import {
   getDigitsOnly,
@@ -26,6 +26,13 @@ function App() {
   const [showToast, setShowToast] = useState(false);
   const [typeSelected, setTypeSelected] = useState<RadioValuesType>(
     RadioValues.money,
+  );
+
+  const styles = useMemo(
+    () => ({
+      left: `${getInputValueWidth(inputValue)}px`,
+    }),
+    [inputValue],
   );
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -93,10 +100,7 @@ function App() {
             onChange={handleChange}
           />
           {showSuffix() && (
-            <span
-              className="suffix"
-              style={{ left: `${getInputValueWidth(inputValue)}` }}
-            >
+            <span className="suffix" style={styles}>
               {getPointsLabel(inputValue)}
             </span>
           )}

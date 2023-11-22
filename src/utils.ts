@@ -26,7 +26,7 @@ export const getInputValueWidth = (value: string): string => {
   if (context) {
     context.font = "16px times new roman";
     let width = context.measureText(value).width + 14;
-    return Math.ceil(width) + "px";
+    return Math.ceil(width).toString();
   }
   return "0";
 };
