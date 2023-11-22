@@ -6,8 +6,8 @@ import {
   getPointsLabel,
   getValueFormattedInBrazilianCurrency,
   getValueFormattedThousands,
-} from "./utils";
-import Toast from "./components/Toast";
+} from "../../utils/utils";
+import Toast from "../../components/Toast";
 
 enum RadioValues {
   money = "money",
