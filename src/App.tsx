@@ -3,6 +3,7 @@ import "./App.css";
 import {
   getDigitsOnly,
   getInputValueWidth,
+  getPointsLabel,
   getValueFormattedInBrazilianCurrency,
   getValueFormattedThousands,
 } from "./utils";
@@ -96,7 +97,7 @@ function App() {
               className="suffix"
               style={{ left: `${getInputValueWidth(inputValue)}` }}
             >
-              {inputValue === "1" ? " pt" : " pts"}
+              {getPointsLabel(inputValue)}
             </span>
           )}
         </div>

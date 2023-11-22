@@ -30,3 +30,7 @@ export const getInputValueWidth = (value: string): string => {
   }
   return "0";
 };
+
+export const getPointsLabel = (value: string): string => {
+  return value === "1" ? "pt" : "pts";
+};
