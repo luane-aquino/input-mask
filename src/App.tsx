@@ -65,7 +65,11 @@ function App() {
   };
 
   const isDisabled = () => {
-    return parseInt(getDigitsOnly(inputValue)) === 0 || inputValue === "";
+    return (
+      parseInt(getDigitsOnly(inputValue)) === 0 ||
+      isNaN(parseInt(getDigitsOnly(inputValue))) ||
+      !inputValue
+    );
   };
 
   const turnOffToast = () => {
