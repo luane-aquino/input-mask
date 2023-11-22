@@ -25,7 +25,7 @@ export const getInputValueWidth = (value: string): string => {
   let context = canvas.getContext("2d");
   if (context) {
     context.font = "16px times new roman";
-    let width = context.measureText(value).width + 8;
+    let width = context.measureText(value).width + 14;
     return Math.ceil(width) + "px";
   }
   return "0";
