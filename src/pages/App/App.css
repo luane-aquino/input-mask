@@ -1,0 +1,107 @@
+.wrapper {
+  position: relative;
+  width: 30%;
+  min-width: 200px;
+  height: 78px;
+}
+
+.suffix {
+  position: absolute;
+  top: 35px;
+}
+
+.App {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.form {
+  width: 50%;
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 4em;
+}
+
+.input {
+  border: none;
+  border-bottom: 1px solid #a3b5bf;
+  width: 100%;
+  height: 48px;
+  padding: 4px 8px;
+}
+
+.label {
+  font-size: 0.8rem;
+  color: #47484f;
+}
+
+.title {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.radios-wrapper {
+  border: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2em;
+}
+
+.radio-content {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.radio-content__label {
+  font-size: 1rem;
+}
+
+.confirm-button {
+  margin-top: 16px;
+  width: 30%;
+  height: 48px;
+  padding: 0.5em;
+  border-radius: 8px;
+  border: 1px solid #012169;
+  background-color: #fff;
+  color: #012169;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.confirm-button:disabled {
+  border: 1px solid #ccc;
+  color: #ccc;
+}
+
+.confirm-button:hover:not([disabled]) {
+  border-color: #106eb0;
+  color: #106eb0;
+}
+
+@media only screen and (max-width: 500px) {
+  .form {
+    width: 100%;
+    gap: 2em;
+  }
+
+  .wrapper {
+    width: 80%;
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
+
+  .confirm-button {
+    width: 80%;
+    margin-top: auto;
+  }
+}
